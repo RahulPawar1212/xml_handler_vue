@@ -4,6 +4,9 @@
       <div class="d-flex text-h4 ml-8 mt-4">Xml Data</div>
       <div class="ml-8 mt-4"><v-btn @click="updateXml">Update XML</v-btn></div>
       <div class="ml-8 mt-4"><v-btn @click="resetXml">Reset XML</v-btn></div>
+      <div class="ml-8 mt-4">
+        <v-btn @click="downloadXml">Download XML</v-btn>
+      </div>
     </div>
     <!-- <button @click="downloadXml" v-if="updatedXml">Download Updated XML</button> -->
     <v-card
@@ -30,19 +33,18 @@ const data = ref<string>("");
 const updatedXml = ref<string | null>(null);
 
 onMounted(async () => {
-  fetchXml()
+  fetchXml();
   // console.log(data);
 });
 
 async function fetchXml() {
   const res = await window.fetch("http://127.0.0.1:5500/test.xml");
   data.value = await res.text();
-  return data.value
+  return data.value;
 }
 
-async function resetXml () {
-  data.value = await fetchXml()
-
+async function resetXml() {
+  data.value = await fetchXml();
 }
 
 const updateXml = () => {
@@ -58,8 +60,16 @@ const updateXml = () => {
 
   const serializer = new XMLSerializer();
   updatedXml.value = serializer.serializeToString(xmlDoc);
-  data.value = updatedXml.value
+  data.value = updatedXml.value;
 };
+
+function downloadXml() {
+  const blob = new Blob([data.value], { type: "text/xml" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "updated.xml";
+  link.click();
+}
 
 const highlightedCode = computed(() => {
   const formattedXML = formatXml(data.value);
