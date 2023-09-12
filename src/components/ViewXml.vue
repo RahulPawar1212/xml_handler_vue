@@ -35,7 +35,7 @@ onMounted(async () => {
 });
 
 async function fetchXml() {
-  const res = await window.fetch("http://127.0.0.1:5500/boilerplate.xml");
+  const res = await window.fetch("http://127.0.0.1:5500/test.xml");
   data.value = await res.text();
   return data.value
 }
