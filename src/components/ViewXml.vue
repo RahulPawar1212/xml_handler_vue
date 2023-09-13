@@ -22,7 +22,7 @@
       <v-card
         width="1200"
         height="2000"
-        class="overflow-auto ml-8 mt-10 border border-primary"
+        class="overflow-auto ml-8 mt-10 border border-primary-"
       >
         <v-card-text>
           <pre>

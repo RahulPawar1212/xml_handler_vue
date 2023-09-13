@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "qid": "Q1",
+    "type": "",
+    "title": "",
+    "question": "",
+    "instructionForRespondent": "",
+    "answersRowOptions": [1, 2, 3, 4],
+    "scaleColumnOptions": [],
+    "frageomrade": "",
+    "CommentsForProgrammer": ""
+  },
+  {
+    "id": "2",
+    "qid": "Q2",
+    "type": "",
+    "title": "",
+    "question": "",
+    "instructionForRespondent": "",
+    "answersRowOptions": [4, 4, 4],
+    "scaleColumnOptions": [],
+    "frageomrade": "",
+    "CommentsForProgrammer": ""
+  }
+]
