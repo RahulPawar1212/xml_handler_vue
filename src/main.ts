@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-// import './style.css'
 import App from './App.vue'
 
 
@@ -12,7 +11,34 @@ import * as directives from 'vuetify/directives'
 const vuetify = createVuetify({
     components,
     directives,
-})
+    theme: {
+        defaultTheme: 'light',
+        themes: {
+            light: {
+                colors: {
+                    primary: '#3f51b5',
+                    secondary: '#b0bec5',
+                    accent: '#8c9eff',
+                    error: '#b71c1c',
+                    background: '#ffffff',  // You can specify other color properties here as needed
+                    // ... other color properties
+                },
+                dark: false
+            },
+            dark: {
+                colors: {
+                    primary: '#3f51b5',
+                    secondary: '#b0bec5',
+                    accent: '#8c9eff',
+                    error: '#b71c1c',
+                    background: '#424242',  // You can specify other color properties here as needed
+                    // ... other color properties
+                },
+                dark: true
+            }
+        }
+    }
+});
 
 createApp(App)
 .use(vuetify)

@@ -1,26 +1,37 @@
 <template>
-  <div ml-4>
-    <div class="d-flex">
-      <div class="d-flex text-h4 ml-8 mt-4">Xml Data</div>
-      <div class="ml-8 mt-4"><v-btn @click="updateXml">Update XML</v-btn></div>
-      <div class="ml-8 mt-4"><v-btn @click="resetXml">Reset XML</v-btn></div>
-      <div class="ml-8 mt-4">
-        <v-btn @click="downloadXml">Download XML</v-btn>
+  <v-app :dark="isDark">
+    <div ml-4>
+      <div class="d-flex">
+        <div class="text-h4 ml-8 mt-4">Xml Data</div>
+        <div class="ml-8 mt-4">
+          <v-btn @click="updateXml">Update XML</v-btn>
+        </div>
+        <div class="ml-8 mt-4"><v-btn @click="resetXml">Reset XML</v-btn></div>
+        <div class="ml-8 mt-4">
+          <v-btn @click="downloadXml">Download XML</v-btn>
+        </div>
+        <div class="justify-end ml-8 mt-4">
+          <v-switch
+            v-model="isDark"
+            inset
+            :label="`Toggle Theme : ${isDark.toString()}`"
+          ></v-switch>
+        </div>
       </div>
-    </div>
-    <!-- <button @click="downloadXml" v-if="updatedXml">Download Updated XML</button> -->
-    <v-card
-      width="1200"
-      height="2000"
-      class="overflow-auto ml-8 mt-10 border border-primary"
-    >
-      <v-card-text>
-        <pre>
+      <!-- <button @click="downloadXml" v-if="updatedXml">Download Updated XML</button> -->
+      <v-card
+        width="1200"
+        height="2000"
+        class="overflow-auto ml-8 mt-10 border border-primary"
+      >
+        <v-card-text>
+          <pre>
            <div v-html="highlightedCode"></div>
        </pre>
-      </v-card-text>
-    </v-card>
-  </div>
+        </v-card-text>
+      </v-card>
+    </div>
+  </v-app>
 </template>
 
 <script setup lang="ts">
@@ -28,9 +39,10 @@ import Prism from "prismjs";
 import { ref, onMounted, computed } from "vue";
 import "prismjs/themes/prism.css";
 import "prismjs/components/prism-xml-doc";
+import { updateInstructions } from "./updateInstructions";
 
+const isDark = ref(false);
 const data = ref<string>("");
-const updatedXml = ref<string | null>(null);
 
 onMounted(async () => {
   fetchXml();
@@ -48,19 +60,7 @@ async function resetXml() {
 }
 
 const updateXml = () => {
-  const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(data.value, "text/xml");
-
-  // Your XML update instructions go here
-  // For example, updating the text of an element:
-  const someElement = xmlDoc.querySelector("person");
-  if (someElement) {
-    someElement.textContent = "New Value";
-  }
-
-  const serializer = new XMLSerializer();
-  updatedXml.value = serializer.serializeToString(xmlDoc);
-  data.value = updatedXml.value;
+  data.value = updateInstructions(data.value);
 };
 
 function downloadXml() {
@@ -100,3 +100,8 @@ function formatXml(xml: string) {
   return formattedXml;
 }
 </script>
+
+//const vuetifyInstance = inject("vuetify") as any; // watch(isDark, (newValue)
+=> { // vuetifyInstance.theme.dark = newValue // }); // const toggleTheme = ()
+=> { // console.log('Test') // isDark.value = !isDark.value; // };
+//isDark.value = !isDark.value;
