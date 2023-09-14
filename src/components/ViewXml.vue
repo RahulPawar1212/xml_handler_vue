@@ -21,13 +21,13 @@
       <!-- <button @click="downloadXml" v-if="updatedXml">Download Updated XML</button> -->
       <v-card
         width="1200"
-        height="2000"
+        height="1100"
         class="overflow-auto ml-8 mt-10 border border-primary-"
       >
         <v-card-text>
           <pre>
            <div v-html="highlightedCode"></div>
-       </pre>
+         </pre>
         </v-card-text>
       </v-card>
     </div>
@@ -50,7 +50,8 @@ onMounted(async () => {
 });
 
 async function fetchXml() {
-  const res = await window.fetch("http://127.0.0.1:5500/test.xml");
+  data.value = "Loading .....";
+  const res = await window.fetch("http://127.0.0.1:5500/boilerplate.xml");
   data.value = await res.text();
   return data.value;
 }
